@@ -2,6 +2,7 @@ package org.example;
 
 import model.Cliente;
 import model.ContaBancaria;
+import model.NovaConta;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -85,12 +86,19 @@ public class Main {
                     String cpf = sc.nextLine();
                     System.out.print("Digite sua senha: ");
                     String novaSenha = sc.nextLine();
+                    System.out.print("confirme sua senha: ");
+                    String senhaComfirm = sc.nextLine();
 
-                    Cliente novoCliente = new Cliente(nome, cpf);
-                    ContaBancaria novaConta = new ContaBancaria(novoCliente, novaSenha);
-                    contas.add(novaConta);
+                    NovaConta contaNova = new NovaConta(nome, cpf, novaSenha, senhaComfirm );
 
-                    System.out.println("Conta criada com sucesso!");
+                    if (contaNova.verificarSenha()) {
+                        Cliente cliente = new Cliente(nome, cpf);
+                        ContaBancaria conta = new ContaBancaria(cliente, novaSenha);
+                        contas.add(conta);
+                        System.out.println("Conta criada com sucesso!");
+                    } else {
+                        System.out.println("As senhas não coincidem. Tente novamente.");
+                    }
                     break;
 
                 case "sair":
