@@ -1,8 +1,6 @@
 package org.example;
 
-import model.Cliente;
-import model.ContaBancaria;
-import model.NovaConta;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,6 +41,7 @@ public class Main {
                                 System.out.println("2 - Depositar");
                                 System.out.println("3 - Sacar");
                                 System.out.println("4 - Ver extrato");
+                                System.out.println("5 - transferencia");
                                 System.out.println("0 - Sair");
                                 System.out.print("Escolha uma opção: ");
                                 opcaoLogado = sc.nextInt();
@@ -64,6 +63,16 @@ public class Main {
                                         break;
                                     case 4:
                                         contaEncontrada.exibirExtrato();
+                                        break;
+                                    case 5:
+                                        System.out.print("Valor da transferencia: ");
+                                        Double valorT = sc.nextDouble();
+
+                                        System.out.print("qual cpf do destinatario: ");
+                                        String cpf = sc.nextLine();
+                                        ContaBancaria contaDestino = GerenciarContas.encontarContaCpf(contas, cpf);
+                                        contaEncontrada.transferir(contaDestino, valorT);
+
                                         break;
                                     case 0:
                                         System.out.println("Saindo da conta...");
@@ -88,12 +97,19 @@ public class Main {
                     String novaSenha = sc.nextLine();
                     System.out.print("confirme sua senha: ");
                     String senhaComfirm = sc.nextLine();
+                    System.out.print("qual tipo de conta : Corrente/Poupança ");
+                    String tipo = sc.nextLine();
 
-                    NovaConta contaNova = new NovaConta(nome, cpf, novaSenha, senhaComfirm );
+                    NovaConta contaNova = new NovaConta(nome, novaSenha, senhaComfirm, cpf  );
 
                     if (contaNova.verificarSenha()) {
                         Cliente cliente = new Cliente(nome, cpf);
-                        ContaBancaria conta = new ContaBancaria(cliente, novaSenha);
+                        ContaBancaria conta;
+                        if(tipo.equalsIgnoreCase("corrente")){
+                             conta = new ContaCorrente(cliente, novaSenha);
+                        }else{
+                             conta = new ContaPoupanca(cliente, novaSenha);
+                        }
                         contas.add(conta);
                         System.out.println("Conta criada com sucesso!");
                     } else {

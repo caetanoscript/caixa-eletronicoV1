@@ -42,12 +42,18 @@ public class ContaBancaria {
     }
 
     public Double getSaldo() {
+
         return saldo;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
+    public String nome(){
+        return cliente.getNome();
+    }
+
+
 
     public void exibirExtrato(){
         for(String E : extrato){
@@ -55,7 +61,19 @@ public class ContaBancaria {
         }
     }
 
-    public String nome(){
-        return cliente.getNome();
+    public boolean transferir(ContaBancaria destino, double valor) {
+        double taxa = 0;
+        double valorTotal = valor + taxa;
+
+        if (valorTotal <= saldo ) {
+            saldo -= valorTotal;
+            destino.depositar(valor);
+            extrato.add(String.format("Transferência para %s | Valor: R$ %.2f", destino.getCliente().getCpf(), valorTotal));
+            return true;
+        }
+
+        return false;
     }
+
+
 }
