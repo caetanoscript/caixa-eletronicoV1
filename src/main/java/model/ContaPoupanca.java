@@ -7,6 +7,14 @@ public class ContaPoupanca extends ContaBancaria{
         super(cliente, senha);
     }
 
+    @Override
+    public boolean sacar(double saque) {
+        Double taxa = 5.0;
+
+        return super.sacar(saque + taxa);
+    }
+
+
 
 
 }

@@ -1,4 +1,8 @@
-package model;
+package util;
+
+import model.ContaBancaria;
+
+import java.util.ArrayList;
 
 public class NovaConta {
 
@@ -13,7 +17,6 @@ public class NovaConta {
         this.senha2 = senha2;
         this.cpf = cpf;
     }
-
 
     public boolean verificarSenha() {
         return senha.equals(senha2);

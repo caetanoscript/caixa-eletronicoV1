@@ -17,8 +17,6 @@ public class ContaBancaria {
         extrato.add("conta criada com saldo: R$0.00");
     }
 
-
-
     public boolean autenticar(String senhaDigitada ){
         return senha.equals(senhaDigitada);
     };
@@ -29,16 +27,17 @@ public class ContaBancaria {
         System.out.println("deposito feito com sucesso! ");
     }
 
-    public boolean sacar(double saque){
-        if (saque <= saldo){
+    public boolean sacar(double saque) {
+        if (saque <= saldo) {
             saldo -= saque;
             extrato.add("saque de : " + saque);
-            System.out.println("saque feito com sucesso! ");
-        }else {
-            System.out.println("você não tem saldo suficiente para o saque saldo disponivel:\n " +
-                    "seu saldo disponivel é de : " + saldo);
+            System.out.println("saque feito com sucesso!");
+            return true;
+        } else {
+            System.out.println("você não tem saldo suficiente para o saque.");
+            System.out.println("seu saldo disponível é de: " + saldo);
+            return false;
         }
-        return false;
     }
 
     public Double getSaldo() {
@@ -52,7 +51,6 @@ public class ContaBancaria {
     public String nome(){
         return cliente.getNome();
     }
-
 
 
     public void exibirExtrato(){
@@ -70,9 +68,10 @@ public class ContaBancaria {
             destino.depositar(valor);
             extrato.add(String.format("Transferência para %s | Valor: R$ %.2f", destino.getCliente().getCpf(), valorTotal));
             return true;
+        }else {
+            System.out.println("Transferência falhou: saldo insuficiente.");
+            return false;
         }
-
-        return false;
     }
 
 
