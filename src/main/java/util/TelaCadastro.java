@@ -13,7 +13,11 @@ public class TelaCadastro {
     public static void cadastrar(ArrayList<ContaBancaria> contas, Scanner sc) {
         System.out.print("Digite seu CPF: ");
         String cpf = sc.nextLine();
-
+        while (!cpf.matches("\\d{11}")) {
+            System.out.println("CPF inválido! Digite exatamente 11 números.");
+            System.out.print("Digite seu CPF novamente: ");
+            cpf = sc.nextLine();
+        }
         if (GerenciarContas.cpfExiste(contas, cpf)) {
             System.out.println("CPF já cadastrado. Deseja fazer login? (sim/nao)");
             String resposta = sc.nextLine();

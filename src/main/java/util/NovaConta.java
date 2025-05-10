@@ -18,15 +18,6 @@ public class NovaConta {
         this.cpf = cpf;
     }
 
-   public boolean cpfExiste (ArrayList<ContaBancaria> contas){
-        for (ContaBancaria c : contas){
-            if(c.getCliente().getCpf().equals(this.cpf)){
-                return true;
-            }
-        }
-       return false;
-   }
-
     public boolean verificarSenha() {
         return senha.equals(senha2);
     }
